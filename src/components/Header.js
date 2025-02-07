@@ -33,6 +33,31 @@ const socials = [
 ];
 
 const Header = () => {
+  const prevScrollPos = useRef(window.pageYOffset);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const currentScrollPos = window.pageYOffset;
+      const headerElement = document.querySelector("[data-header]");
+      
+      if (!headerElement) return;
+      
+      if (prevScrollPos.current > currentScrollPos) {
+        headerElement.style.transform = "translateY(0)";
+      } else {
+        headerElement.style.transform = "translateY(-200px)";
+      }
+      
+      prevScrollPos.current = currentScrollPos;
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, []);
+
   const handleClick = (anchor) => () => {
     const id = `${anchor}-section`;
     const element = document.getElementById(id);
@@ -55,6 +80,7 @@ const Header = () => {
       transitionDuration=".3s"
       transitionTimingFunction="ease-in-out"
       backgroundColor="#18181b"
+      data-header
     >
       <Box color="white" maxWidth="1280px" margin="0 auto">
         <HStack
