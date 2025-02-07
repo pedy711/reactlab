@@ -17,7 +17,7 @@ import FullScreenSection from "./FullScreenSection";
 import useSubmit from "../hooks/useSubmit";
 import {useAlertContext} from "../context/alertContext";
 
-const LandingSection = () => {
+const ContactMeSection = () => {
   const {isLoading, response, submit} = useSubmit();
   const { onOpen } = useAlertContext();
 
@@ -29,7 +29,7 @@ const LandingSection = () => {
       comment: "",
     },
     onSubmit: (values, { resetForm }) => {
-      submit(values);
+      submit("https://example.com/contactme", values);
     },
     validationSchema: Yup.object({
       firstName: Yup.string().required("First Name is required"),
@@ -119,4 +119,4 @@ const LandingSection = () => {
   );
 };
 
-export default LandingSection;
+export default ContactMeSection;
